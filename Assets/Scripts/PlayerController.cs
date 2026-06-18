@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (cc != null) cc.enabled = false;
 
         Animator anim = GetComponent<Animator>();
-        if (anim != null) anim.SetTrigger("Die");
+        if (anim != null) anim.SetTrigger("IsDead");
     }
 
     void RestartScene()

@@ -7542,6 +7542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4127960938634840145, guid: a5295e78cd3f41f4d9ccd1f82ccb9e0e, type: 3}
   enemyCount: 2
+  currentEnemyCount: 0
 --- !u!65 &1111075257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7962,6 +7963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4127960938634840145, guid: a5295e78cd3f41f4d9ccd1f82ccb9e0e, type: 3}
   enemyCount: 2
+  currentEnemyCount: 0
 --- !u!65 &1154286173
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8293,6 +8295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4127960938634840145, guid: a5295e78cd3f41f4d9ccd1f82ccb9e0e, type: 3}
   enemyCount: 2
+  currentEnemyCount: 0
 --- !u!65 &1204030707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9226,6 +9229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4127960938634840145, guid: a5295e78cd3f41f4d9ccd1f82ccb9e0e, type: 3}
   enemyCount: 2
+  currentEnemyCount: 0
 --- !u!65 &1445096925
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12234,6 +12238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4127960938634840145, guid: a5295e78cd3f41f4d9ccd1f82ccb9e0e, type: 3}
   enemyCount: 2
+  currentEnemyCount: 0
 --- !u!65 &2074554460
 BoxCollider:
   m_ObjectHideFlags: 0

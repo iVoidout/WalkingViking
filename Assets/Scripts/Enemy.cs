@@ -12,20 +12,34 @@ public class Enemy : MonoBehaviour
     private float lastAttackTime;
     private bool isDead = false;
 
+    
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
+
 
     void Update()
     {
-        if (isDead) return;
+        if (isDead) 
+        {
+            
+            return;
+        }
+
+        Vector3 target = player.position;
+        target.y = 0f;
+        Vector3 pos = transform.position;
+        pos.y = 0f;
 
         float dist = Vector3.Distance(transform.position, player.position);
         if (dist > attackRange)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-            transform.LookAt(player);
+            transform.position = Vector3.MoveTowards(pos, player.position, speed * Time.deltaTime);
+
+            transform.LookAt(target);
         }
         else if (Time.time >= lastAttackTime + attackCooldown)
         {
@@ -36,13 +50,20 @@ public class Enemy : MonoBehaviour
 
     void AttackPlayer()
     {
+        GetComponent<Animator>()?.SetTrigger("IsAttacking");
         PlayerController pc = player.GetComponent<PlayerController>();
         if (pc != null) pc.TakeDamage(damage);
     }
 
     public void TakeDamage(int dmg)
     {
-        if (isDead) return;
+        if (isDead)
+        {
+            Vector3 posdead = transform.position;
+            posdead.y -= 0.001f;
+            transform.position = posdead;
+            return;
+        }
         health -= dmg;
         if (health <= 0)
         {
@@ -53,7 +74,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isDead = true;
-        //GetComponent<Animator>()?.SetTrigger("Die");
-        Destroy(gameObject, 1f);
+        GetComponent<Animator>()?.SetTrigger("IsDead");
+        Destroy(gameObject, 2f);
     }
 }
