@@ -25,7 +25,6 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) 
         {
-            
             return;
         }
 
@@ -60,7 +59,7 @@ public class Enemy : MonoBehaviour
         if (isDead)
         {
             Vector3 posdead = transform.position;
-            posdead.y -= 0.001f;
+            posdead.y -= 0.01f;
             transform.position = posdead;
             return;
         }
