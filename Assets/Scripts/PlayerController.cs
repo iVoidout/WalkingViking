@@ -6,10 +6,10 @@ public class PlayerController : MonoBehaviour
 
 
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
     public GameObject weapon;
     public float attackRange = 2f;
-    public int attackDamage = 25;
+    public int attackDamage = 7;
     public float attackCooldown = 0.8f;
 
     private float lastAttackTime;

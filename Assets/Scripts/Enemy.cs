@@ -73,7 +73,14 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isDead = true;
-        GetComponent<Animator>()?.SetTrigger("IsDead");
-        Destroy(gameObject, 2f);
+
+        // Add points when enemy dies
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(100); // Add 100 points per enemy
+        }
+
+        //GetComponent<Animator>()?.SetTrigger("Die");
+        Destroy(gameObject, 1f);
     }
 }
