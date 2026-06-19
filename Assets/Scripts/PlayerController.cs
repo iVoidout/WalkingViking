@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     private float lastAttackTime;
     private bool isDead = false;
 
+    public int score;
+    private ScoreManager scoreManager;
+    public int enemiesPerWave = 5;
+    private int lastMilestone = 0;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -24,6 +29,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (isDead) return;
+
+        scoreManager = FindObjectOfType<ScoreManager>();
+        score = scoreManager.GetScore();
+        int currentMilestone = score / 1000;
+
+        if (currentMilestone > lastMilestone)
+        {
+            currentHealth += 25;
+            lastMilestone = currentMilestone;
+        }
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");

@@ -3,13 +3,18 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public int enemyCount = 2;
+    private int enemyCount = 2;
     public int currentEnemyCount = 0;
     private bool hasSpawned = false;
+    private ScoreManager scoreManager;
+ 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && currentEnemyCount < 2)
+        scoreManager = FindObjectOfType<ScoreManager>();
+        enemyCount = enemyCount + (scoreManager.GetScore() / 400);
+        Debug.Log(enemyCount);
+        if (other.CompareTag("Player") && currentEnemyCount < enemyCount)
         {
             hasSpawned = true;
             for (currentEnemyCount = 0; currentEnemyCount < enemyCount; currentEnemyCount++)

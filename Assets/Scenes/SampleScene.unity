@@ -3446,7 +3446,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1973551116}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 40
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -3471,7 +3471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547583384}
   m_LocalRotation: {x: 0.23429382, y: 0, z: 0, w: 0.9721658}
-  m_LocalPosition: {x: 0.22925639, y: 3.38, z: -4.4}
+  m_LocalPosition: {x: 0.02, y: 3.38, z: -4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6486,7 +6486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0.22925639, y: 3.38, z: -3.15}
+  m_FollowOffset: {x: 0.02, y: 3.38, z: -3.15}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -6749,7 +6749,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -6775,7 +6775,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.23429382, y: 0, z: 0, w: 0.9721658}
-  m_LocalPosition: {x: 0.22925639, y: 3.38, z: -4.4}
+  m_LocalPosition: {x: 0.02, y: 3.38, z: -4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8513,7 +8513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4127960938634840145, guid: a5295e78cd3f41f4d9ccd1f82ccb9e0e, type: 3}
-  enemyCount: 2
+  enemyCount: 3
   currentEnemyCount: 0
 --- !u!65 &1204030707
 BoxCollider:
@@ -9212,7 +9212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 240}
+  m_AnchoredPosition: {x: -600, y: 240}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1331606970 stripped
@@ -10022,7 +10022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: -240}
+  m_AnchoredPosition: {x: 0, y: -400}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533569336
@@ -11259,7 +11259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 270}
+  m_AnchoredPosition: {x: -600, y: 270}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1844234809
@@ -12208,10 +12208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationFactorPerFrame: 7
   walkSpeed: 1.3
-  initialJumpVelocity: 7
-  maxJumpHeight: 3
+  initialJumpVelocity: 2
+  maxJumpHeight: 1
   maxJumpTime: 0.8
-  runMultiplier: 4
+  runMultiplier: 3
   gravity: -6
   groundedGravity: -0.1
   groundCheck: {fileID: 623589735}
