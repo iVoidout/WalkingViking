@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) 
         {
+            Vector3 posdead = transform.position;
+            posdead.y -= 0.001f;
+            transform.position = posdead;
             return;
         }
 
@@ -58,9 +61,6 @@ public class Enemy : MonoBehaviour
     {
         if (isDead)
         {
-            Vector3 posdead = transform.position;
-            posdead.y -= 0.01f;
-            transform.position = posdead;
             return;
         }
         health -= dmg;
@@ -73,6 +73,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isDead = true;
+        GetComponent<Animator>()?.SetTrigger("IsDead");
 
         // Add points when enemy dies
         if (ScoreManager.Instance != null)
@@ -80,7 +81,6 @@ public class Enemy : MonoBehaviour
             ScoreManager.Instance.AddScore(100); // Add 100 points per enemy
         }
 
-        //GetComponent<Animator>()?.SetTrigger("Die");
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
     }
 }
