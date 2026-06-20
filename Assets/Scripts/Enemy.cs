@@ -8,39 +8,32 @@ public class Enemy : MonoBehaviour
     public int damage = 10;
     public float attackCooldown = 1.5f;
 
+    public AudioClip attackSound;   // 🔊 صدای حمله زامبی
+
     private Transform player;
     private float lastAttackTime;
     private bool isDead = false;
-
-    
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-
     void Update()
     {
-        if (isDead) 
-        {
-            Vector3 posdead = transform.position;
-            posdead.y -= 0.001f;
-            transform.position = posdead;
-            return;
-        }
-
-        Vector3 target = player.position;
-        target.y = 0f;
-        Vector3 pos = transform.position;
-        pos.y = 0f;
+        if (isDead) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
+
         if (dist > attackRange)
         {
-            transform.position = Vector3.MoveTowards(pos, player.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                player.position,
+                speed * Time.deltaTime
+            );
 
-            transform.LookAt(target);
+            transform.LookAt(player.position);
         }
         else if (Time.time >= lastAttackTime + attackCooldown)
         {
@@ -51,34 +44,35 @@ public class Enemy : MonoBehaviour
 
     void AttackPlayer()
     {
+        // 🔊 پخش صدای حمله زامبی
+        if (attackSound != null)
+            AudioSource.PlayClipAtPoint(attackSound, transform.position);
+
         GetComponent<Animator>()?.SetTrigger("IsAttacking");
+
         PlayerController pc = player.GetComponent<PlayerController>();
-        if (pc != null) pc.TakeDamage(damage);
+        if (pc != null)
+            pc.TakeDamage(damage);
     }
 
     public void TakeDamage(int dmg)
     {
-        if (isDead)
-        {
-            return;
-        }
+        if (isDead) return;
+
         health -= dmg;
+
         if (health <= 0)
-        {
             Die();
-        }
     }
 
     void Die()
     {
         isDead = true;
+
         GetComponent<Animator>()?.SetTrigger("IsDead");
 
-        // Add points when enemy dies
         if (ScoreManager.Instance != null)
-        {
-            ScoreManager.Instance.AddScore(100); // Add 100 points per enemy
-        }
+            ScoreManager.Instance.AddScore(100);
 
         Destroy(gameObject, 2f);
     }
