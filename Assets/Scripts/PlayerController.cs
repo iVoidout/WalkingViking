@@ -3,22 +3,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Health")]
     public int maxHealth = 100;
     public int currentHealth;
 
+    [Header("Movement")]
+    public float moveSpeed = 3f;
+
+    [Header("Attack")]
     public GameObject weapon;
     public float attackRange = 2f;
     public int attackDamage = 7;
     public float attackCooldown = 0.8f;
 
-    public AudioClip axeSound;   // 🔊 صدای تبر
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip axeSound;
 
     private float lastAttackTime;
     private bool isDead = false;
-
-    private ScoreManager scoreManager;
-    public int score;
-    private int lastMilestone = 0;
 
     void Start()
     {
@@ -29,21 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
-        scoreManager = FindObjectOfType<ScoreManager>();
-        score = scoreManager.GetScore();
-
-        int currentMilestone = score / 1000;
-
-        if (currentMilestone > lastMilestone)
-        {
-            currentHealth += 25;
-            lastMilestone = currentMilestone;
-        }
-
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        transform.Translate(new Vector3(h, 0, v) * 3f * Time.deltaTime);
+        Move();
 
         if (Input.GetMouseButtonDown(0) &&
             Time.time >= lastAttackTime + attackCooldown)
@@ -53,11 +42,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Move()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Vector3 move = new Vector3(h, 0, v);
+        transform.Translate(move * moveSpeed * Time.deltaTime);
+    }
+
     void Attack()
     {
-        // 🔊 صدای تبر
-        if (axeSound != null)
-            AudioSource.PlayClipAtPoint(axeSound, transform.position);
+        if (audioSource != null && axeSound != null)
+            audioSource.PlayOneShot(axeSound);
 
         weapon.SetActive(true);
 
@@ -83,8 +80,6 @@ public class PlayerController : MonoBehaviour
 
         currentHealth -= damage;
 
-        Debug.Log("Health: " + currentHealth);
-
         if (currentHealth <= 0)
             Die();
     }
@@ -92,18 +87,6 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         isDead = true;
-
-        Debug.Log("You Died!");
-
-        CharacterController cc = GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false;
-
-        Animator anim = GetComponent<Animator>();
-        if (anim != null) anim.SetTrigger("IsDead");
-    }
-
-    void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Player Died!");
     }
 }
