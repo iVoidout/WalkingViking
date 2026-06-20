@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject weapon;
     public float attackRange = 2f;
     public int attackDamage = 7;
-    public float attackCooldown = 0.8f;
+    public float attackCooldown = 2f;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour
 
     private float lastAttackTime;
     private bool isDead = false;
+
+    public int score;
+    private ScoreManager scoreManager;
+    private int lastMilestone = 0;
 
     void Start()
     {
@@ -34,7 +39,16 @@ public class PlayerController : MonoBehaviour
 
         Move();
 
-        if (Input.GetMouseButtonDown(0) &&
+        scoreManager = FindObjectOfType<ScoreManager>();
+        score = scoreManager.GetScore();
+        int currentMilestone = score / 1000;
+
+        if (currentMilestone > lastMilestone)
+        {
+            currentHealth += 25;
+            lastMilestone = currentMilestone;
+        }
+            if (Input.GetMouseButtonDown(0) &&
             Time.time >= lastAttackTime + attackCooldown)
         {
             Attack();
@@ -87,6 +101,7 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         isDead = true;
+        GetComponent<Animator>()?.SetTrigger("IsDead");
         Debug.Log("Player Died!");
     }
 }

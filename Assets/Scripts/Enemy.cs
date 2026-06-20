@@ -11,28 +11,41 @@ public class Enemy : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip attackSound;
+    public AudioClip zombieSound;
 
     private Transform player;
     private float lastAttackTime;
     private bool isDead = false;
+
 
     void Start()
     {
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null)
             player = p.transform;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(zombieSound);
     }
 
     void Update()
     {
-        if (isDead || player == null) return;
+        if (isDead)
+        {
+            return;
+        }
+
+        Vector3 target = player.position;
+        target.y = 0f;
+        Vector3 pos = transform.position;
+        pos.y = 0f;
 
         float dist = Vector3.Distance(transform.position, player.position);
 
         if (dist > attackRange)
         {
-            MoveToPlayer();
+            transform.position = Vector3.MoveTowards(pos, player.position, speed * Time.deltaTime);
+            transform.LookAt(target);
         }
         else
         {
@@ -44,22 +57,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void MoveToPlayer()
-    {
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            player.position,
-            speed * Time.deltaTime
-        );
-
-        transform.LookAt(player);
-    }
-
     void AttackPlayer()
     {
-        if (audioSource != null && attackSound != null)
-            audioSource.PlayOneShot(attackSound);
-
+        
+        GetComponent<Animator>()?.SetTrigger("IsAttacking");
         PlayerController pc = player.GetComponent<PlayerController>();
         if (pc != null)
             pc.TakeDamage(damage);
@@ -78,6 +79,14 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isDead = true;
-        Destroy(gameObject, 1f);
+        GetComponent<Animator>()?.SetTrigger("IsDead");
+
+        // Add points when enemy dies
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(100); // Add 100 points per enemy
+        }
+
+        Destroy(gameObject, 2.5f);
     }
 }
