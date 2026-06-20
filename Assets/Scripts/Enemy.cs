@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Stats")]
     public int health = 50;
     public float speed = 2f;
     public float attackRange = 1.5f;
     public int damage = 10;
     public float attackCooldown = 1.5f;
 
-    public AudioClip attackSound;   // 🔊 صدای حمله زامبی
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip attackSound;
 
     private Transform player;
     private float lastAttackTime;
@@ -16,39 +19,46 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+            player = p.transform;
     }
 
     void Update()
     {
-        if (isDead) return;
+        if (isDead || player == null) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
 
         if (dist > attackRange)
         {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                player.position,
-                speed * Time.deltaTime
-            );
-
-            transform.LookAt(player.position);
+            MoveToPlayer();
         }
-        else if (Time.time >= lastAttackTime + attackCooldown)
+        else
         {
-            AttackPlayer();
-            lastAttackTime = Time.time;
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                AttackPlayer();
+                lastAttackTime = Time.time;
+            }
         }
+    }
+
+    void MoveToPlayer()
+    {
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            player.position,
+            speed * Time.deltaTime
+        );
+
+        transform.LookAt(player);
     }
 
     void AttackPlayer()
     {
-        // 🔊 پخش صدای حمله زامبی
-        if (attackSound != null)
-            AudioSource.PlayClipAtPoint(attackSound, transform.position);
-
-        GetComponent<Animator>()?.SetTrigger("IsAttacking");
+        if (audioSource != null && attackSound != null)
+            audioSource.PlayOneShot(attackSound);
 
         PlayerController pc = player.GetComponent<PlayerController>();
         if (pc != null)
@@ -68,12 +78,6 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isDead = true;
-
-        GetComponent<Animator>()?.SetTrigger("IsDead");
-
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddScore(100);
-
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1f);
     }
 }
