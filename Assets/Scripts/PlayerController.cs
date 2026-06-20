@@ -17,9 +17,13 @@ public class PlayerController : MonoBehaviour
     public int attackDamage = 7;
     public float attackCooldown = 2f;
 
-    [Header("Audio")]
+    [Header("Axe Audio")]
     public AudioSource audioSource;
     public AudioClip axeSound;
+
+    [Header("Death Audio")]
+    public AudioSource audioSource2;
+    public AudioClip deathSound;
 
     private float lastAttackTime;
     private bool isDead = false;
@@ -92,6 +96,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
+
         currentHealth -= damage;
 
         if (currentHealth <= 0)
@@ -101,6 +106,8 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         isDead = true;
+        if (audioSource2 != null && deathSound != null)
+            audioSource2.PlayOneShot(deathSound);
         GetComponent<Animator>()?.SetTrigger("IsDead");
         Debug.Log("Player Died!");
     }
