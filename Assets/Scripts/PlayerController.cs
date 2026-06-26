@@ -23,21 +23,25 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip axeSound;
 
-    [Header("Death Audio")]
-    public AudioSource audioSource2;
+    [Header("Death")]
+    public AudioSource audioSourceDeath;
     public AudioClip deathSound;
+    public AudioSource audioSourceDeathSFX;
+    public AudioClip deathSFXSound;
+    public GameObject deathMenu;
 
-    [Header("Heal Audio")]
+    [Header("Healing")]
     public AudioSource audioSourceHeal;
     public AudioClip healSound;
+    public TMP_Text healedText;
 
     private float lastAttackTime;
     private bool isDead = false;
 
+    [Header("Misc")]
     public int score;
     private ScoreManager scoreManager;
     private int lastMilestone = 0;
-    public TMP_Text healedText;
 
     void Start()
     {
@@ -123,10 +127,13 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+        deathMenu.SetActive(true);
+
         isDead = true;
-        if (audioSource2 != null && deathSound != null)
-            audioSource2.PlayOneShot(deathSound);
+        if (audioSourceDeath != null && deathSound != null)
+            audioSourceDeath.PlayOneShot(deathSound);
+        if (audioSourceDeathSFX != null && deathSFXSound != null)
+            audioSourceDeathSFX.PlayOneShot(deathSFXSound);
         GetComponent<Animator>()?.SetTrigger("IsDead");
-        Debug.Log("Player Died!");
     }
 }
