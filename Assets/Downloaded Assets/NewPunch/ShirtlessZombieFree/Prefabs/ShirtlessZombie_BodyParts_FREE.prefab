@@ -1903,7 +1903,7 @@ MonoBehaviour:
   attackRange: 1.5
   damage: 10
   attackCooldown: 1.5
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 3141391839167209208}
   zombieSound: {fileID: 8300000, guid: b67d063aa65fcc84eb94ab6692475acd, type: 3}
 --- !u!136 &2012355525337840230
 CapsuleCollider:
