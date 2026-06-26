@@ -3,11 +3,15 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    private int enemyCount = 2;
-    public int currentEnemyCount = 0;
+    public int enemyCount = 2;
+    private int currentEnemyCount = 0;
     private bool hasSpawned = false;
     private ScoreManager scoreManager;
- 
+
+    private void Start()
+    {
+        enemyCount = 2;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

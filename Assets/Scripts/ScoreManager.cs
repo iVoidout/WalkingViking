@@ -17,19 +17,24 @@ public class ScoreManager : MonoBehaviour
 
     void Awake()
     {
+        currentScore = 0;
+        killCount = 0;
+
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
     void Start()
     {
+        
+
         if (scoreText != null)
         {
             originalColor = scoreText.color;

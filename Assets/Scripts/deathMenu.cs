@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class deathMenu : MonoBehaviour
+public class DeathMenu : MonoBehaviour
 {
     public GameObject container;
     private bool paused = false;
@@ -14,7 +14,7 @@ public class deathMenu : MonoBehaviour
         paused = false;
         Time.timeScale = 1f;
         AudioListener.volume = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ExitToDesktop()

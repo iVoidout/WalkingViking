@@ -42,6 +42,7 @@ public class PauseMenu : MonoBehaviour
         AudioListener.volume = 1f;
         container.SetActive(false);
         Time.timeScale = 1f;
+        
     }
 
     public void RestartButton()
@@ -49,7 +50,7 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         Time.timeScale = 1f;
         AudioListener.volume = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ExitToDesktop()
