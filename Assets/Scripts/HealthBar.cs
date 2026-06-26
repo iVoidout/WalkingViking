@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class HealthBar : MonoBehaviour
 {
     public Image healthBarFill;     // Drag HealthBarFill here
-    public Text healthText;          // Drag HealthText here
+    public TMP_Text healthText;          // Drag HealthText here
     public PlayerController player;  // Drag Player here
 
     void Start()
@@ -49,17 +49,25 @@ public class HealthBar : MonoBehaviour
         {
             float healthPercent = healthBarFill.fillAmount;
 
-            if (healthPercent > 0.6f)
+            if (healthPercent > 1.0f)
+            {
+                healthBarFill.color = Color.blue;
+                healthText.color = Color.blue;
+            }
+            else if (healthPercent > 0.6f)
             {
                 healthBarFill.color = Color.green;
+                healthText.color = Color.green;
             }
             else if (healthPercent > 0.3f)
             {
                 healthBarFill.color = Color.yellow;
+                healthText.color = Color.yellow;
             }
             else
             {
                 healthBarFill.color = Color.red;
+                healthText.color = Color.red;
             }
         }
     }

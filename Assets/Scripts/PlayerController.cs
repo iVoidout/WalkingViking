@@ -1,7 +1,8 @@
 using UnityEngine;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,12 +27,17 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource2;
     public AudioClip deathSound;
 
+    [Header("Heal Audio")]
+    public AudioSource audioSourceHeal;
+    public AudioClip healSound;
+
     private float lastAttackTime;
     private bool isDead = false;
 
     public int score;
     private ScoreManager scoreManager;
     private int lastMilestone = 0;
+    public TMP_Text healedText;
 
     void Start()
     {
@@ -46,12 +52,16 @@ public class PlayerController : MonoBehaviour
 
         scoreManager = FindObjectOfType<ScoreManager>();
         score = scoreManager.GetScore();
-        int currentMilestone = score / 1000;
+        int currentMilestone = score / 600;
 
         if (currentMilestone > lastMilestone)
         {
+            if (audioSourceHeal != null && healSound != null)
+                audioSourceHeal.PlayOneShot(healSound);
             currentHealth += 25;
             lastMilestone = currentMilestone;
+            StartCoroutine(ShowRoutine(3f));
+
         }
             if (Input.GetMouseButtonDown(0) &&
             Time.time >= lastAttackTime + attackCooldown)
@@ -59,6 +69,13 @@ public class PlayerController : MonoBehaviour
             Attack();
             lastAttackTime = Time.time;
         }
+    }
+
+    IEnumerator ShowRoutine(float time)
+    {
+        healedText.alpha = 255f;
+        yield return new WaitForSeconds(time);
+        healedText.alpha = 0f;
     }
 
     void Move()

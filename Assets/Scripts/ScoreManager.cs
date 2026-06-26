@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections; // This is needed for coroutines!
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class ScoreManager : MonoBehaviour
     public Color flashColor = Color.yellow;
     public float flashDuration = 0.2f;
     private Color originalColor;
-    public Text scoreText;
-    public Text killText;
+    public TMP_Text scoreText;
+    public TMP_Text killText;
 
     void Awake()
     {
