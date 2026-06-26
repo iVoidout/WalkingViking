@@ -40,4 +40,11 @@ public class PauseMenu : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }
+
+    public void MainMenuButton()
+    {
+        Time.timeScale = 1f;
+        AudioListener.volume = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 }
