@@ -10,8 +10,6 @@ public class PauseMenu : MonoBehaviour
     private bool paused = false;
     void Update()
     {
-        Debug.Log(Input.GetKeyDown(KeyCode.Escape));
-
         if (!paused)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

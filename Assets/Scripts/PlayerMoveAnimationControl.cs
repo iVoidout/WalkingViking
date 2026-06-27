@@ -73,7 +73,7 @@ public class PlayerMoveAnimationControl : MonoBehaviour
         if (context.started && !isBasicSlashing)
         {
             isBasicSlashPressed = true;
-            Debug.Log("Basic Slash pressed");
+           
         }
     }
     void setupJumpVariables()
@@ -245,7 +245,7 @@ public class PlayerMoveAnimationControl : MonoBehaviour
             {
                 canMove = true;
                 canJump = true;
-                Debug.Log("animationDone");
+              
                 isBasicSlashAnimated = false;
             }
         }

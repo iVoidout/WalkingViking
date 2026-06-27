@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public int score;
     private ScoreManager scoreManager;
     private int lastMilestone = 0;
-
+    
     void Start()
     {
         currentHealth = maxHealth;
@@ -51,8 +51,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (isDead) return;
-
-        Move();
 
         scoreManager = FindObjectOfType<ScoreManager>();
         score = scoreManager.GetScore();
@@ -82,14 +80,7 @@ public class PlayerController : MonoBehaviour
         healedText.alpha = 0f;
     }
 
-    void Move()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
 
-        Vector3 move = new Vector3(h, 0, v);
-        transform.Translate(move * moveSpeed * Time.deltaTime);
-    }
 
     void Attack()
     {
@@ -129,11 +120,16 @@ public class PlayerController : MonoBehaviour
     {
         deathMenu.SetActive(true);
 
+        CharacterController cc = GetComponent<CharacterController>();
+        if (cc != null) cc.enabled = false;
+
         isDead = true;
+
         if (audioSourceDeath != null && deathSound != null)
             audioSourceDeath.PlayOneShot(deathSound);
         if (audioSourceDeathSFX != null && deathSFXSound != null)
             audioSourceDeathSFX.PlayOneShot(deathSFXSound);
+
         GetComponent<Animator>()?.SetTrigger("IsDead");
     }
 }
